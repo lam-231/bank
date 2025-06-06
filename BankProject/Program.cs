@@ -19,12 +19,16 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromDays(7);
 });
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICardRepository, CardRepository>();
+builder.Services.AddScoped<IContactRepository, ContactRepository>(); 
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IContactService, ContactService>();     
 
 builder.Services.AddScoped<IPasswordHasher<BankProject.Models.User>, PasswordHasher<BankProject.Models.User>>();
 
@@ -38,10 +42,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 app.UseSession();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(

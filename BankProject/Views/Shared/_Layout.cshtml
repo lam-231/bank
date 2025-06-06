@@ -28,17 +28,8 @@
 
                 <div class="collapse navbar-collapse" id="mainNavbar">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">Головна</a>
-                        </li>
                         @{
                             var userId = HttpContextAccessor.HttpContext.Session.GetInt32("_UserId");
-                        }
-                        @if (userId != null)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Contacts" asp-action="Index">Контакти</a>
-                            </li>
                         }
                     </ul>
 
@@ -94,31 +85,12 @@
                                 </a>
                             </li>
                         }
-
-                        @if (userId != null)
-                        {
-                            <li class="nav-item ms-3">
-                                <a class="nav-link" asp-controller="Mobile" asp-action="Profile">Профіль</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Account" asp-action="Logout">Вийти</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item ms-3">
-                                <a class="nav-link" asp-controller="Account" asp-action="Login">Увійти</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Account" asp-action="Register">Реєстрація</a>
-                            </li>
-                        }
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container mt-4">
+    <div class="container mt-4 pb-5">
         @if (TempData["SuccessMessage"] != null)
         {
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -134,7 +106,33 @@
             </div>
         }
 
-        @RenderBody()
+        @{
+            var controllerName = ViewContext.RouteData.Values["controller"]?.ToString().ToLower() ?? "";
+            bool mobileMode = controllerName == "account" || controllerName == "mobile" || controllerName == "contacts";
+            bool atmMode = controllerName == "atm";
+        }
+
+        @if (mobileMode)
+        {
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    @RenderBody()
+                </div>
+            </div>
+        }
+        else if (atmMode)
+        {
+            <div class="atm-frame">
+                <div class="atm-screen">
+                    @RenderBody()
+                </div>
+            </div>
+        }
+        else
+        {
+            @RenderBody()
+        }
     </div>
 
     <footer class="footer mt-auto py-3 bg-light">

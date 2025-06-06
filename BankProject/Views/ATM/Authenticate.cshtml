@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "ATM Authenticate";
+}
+
+<h2>Перевірка CVV та паролю</h2>
+
+<form asp-action="Authenticate" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="row mb-3">
+        <label for="password" class="col-sm-3 col-form-label">Пароль</label>
+        <div class="col-sm-6">
+            <input type="password" name="password" id="password" class="form-control"
+                   placeholder="4-digit PIN" pattern="\d{4}" maxlength="4" required />
+            <span class="form-text text-muted">Введіть 4-значний PIN (пароль).</span>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Увійти</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

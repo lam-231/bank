@@ -37,6 +37,11 @@ namespace BankProject.Repositories
                 .Include(c => c.User)
                 .FirstOrDefaultAsync(c => c.UserId == userId);
         }
+        public async Task UpdateAsync(Card card)
+        {
+            _ctx.Cards.Update(card);
+            await Task.CompletedTask;
+        }
 
         public async Task SaveChangesAsync()
         {

@@ -1,0 +1,71 @@
+﻿@model BankProject.ViewModels.AdminIndexViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h2>Панель Адміністратора</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<hr />
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h4>Готівка в банкоматі: <span class="fw-bold">@Model.ATMCash.ToString("C")</span></h4>
+    </div>
+    <div class="col-md-6">
+        <form asp-action="AddCash" method="post" class="row g-2 align-items-center">
+            <div asp-validation-summary="All" class="text-danger mb-2"></div>
+
+            <div class="col-auto">
+                <label for="amountInput" class="form-label">Сума для додавання:</label>
+            </div>
+            <div class="col-auto">
+                <input type="number" step="0.01" name="Amount" id="amountInput"
+                       class="form-control" placeholder="Наприклад: 1000" required />
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-success">Додати готівку</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+<h4>Список користувачів</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ім'я</th>
+            <th>Прізвище</th>
+            <th>Номер картки</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.AllUsers)
+        {
+            <tr>
+                <td>@user.Name</td>
+                <td>@user.Surname</td>
+                <td>@user.Card?.CardNumber</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@user.Id" class="btn btn-primary btn-sm">
+                        Детальна інформація
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

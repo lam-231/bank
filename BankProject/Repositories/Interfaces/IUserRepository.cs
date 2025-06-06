@@ -8,5 +8,7 @@ namespace BankProject.Repositories.Interfaces
         Task<User> GetByIdAsync(int id);
         Task AddAsync(User user);
         Task SaveChangesAsync();
+        Task<List<User>> GetAllAsync();
+
     }
 }

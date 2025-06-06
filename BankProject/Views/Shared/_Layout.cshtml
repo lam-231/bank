@@ -46,30 +46,58 @@
                         @{
                             var path = HttpContextAccessor.HttpContext.Request.Path.Value?.ToLower() ?? "";
                             bool isAtm = path.StartsWith("/atm");
+                            bool isAdmin = path.StartsWith("/admin");
                         }
 
                         @if (isAtm)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-outline-primary me-2"
+                            <li class="nav-item me-2">
+                                <a class="btn btn-outline-primary"
                                    asp-controller="Mobile" asp-action="Profile">
                                     Мобільна версія
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-secondary"
+                                   asp-controller="Admin" asp-action="Index">
+                                    Адмін
+                                </a>
+                            </li>
+                        }
+                        else if (isAdmin)
+                        {
+                            <li class="nav-item me-2">
+                                <a class="btn btn-outline-primary"
+                                   asp-controller="Mobile" asp-action="Profile">
+                                    Мобільна версія
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-secondary"
+                                   asp-controller="ATM" asp-action="Login">
+                                    Банкомат
                                 </a>
                             </li>
                         }
                         else
                         {
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-outline-primary me-2"
+                            <li class="nav-item me-2">
+                                <a class="btn btn-outline-primary"
                                    asp-controller="ATM" asp-action="Login">
                                     Банкомат
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-secondary"
+                                   asp-controller="Admin" asp-action="Index">
+                                    Адмін
                                 </a>
                             </li>
                         }
 
                         @if (userId != null)
                         {
-                            <li class="nav-item">
+                            <li class="nav-item ms-3">
                                 <a class="nav-link" asp-controller="Mobile" asp-action="Profile">Профіль</a>
                             </li>
                             <li class="nav-item">
@@ -78,7 +106,7 @@
                         }
                         else
                         {
-                            <li class="nav-item">
+                            <li class="nav-item ms-3">
                                 <a class="nav-link" asp-controller="Account" asp-action="Login">Увійти</a>
                             </li>
                             <li class="nav-item">

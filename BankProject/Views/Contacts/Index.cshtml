@@ -1,0 +1,38 @@
+﻿@model List<BankProject.Models.Contact>
+@{
+    ViewData["Title"] = "Мої контакти";
+}
+
+<h2>Мої контакти</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Додати новий контакт</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ім’я контакту</th>
+            <th>Номер картки</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.ContactName</td>
+                <td>@c.ContactCardNumber</td>
+                <td>
+                    <form asp-action="Delete" method="post" style="display:inline">
+                        <input type="hidden" name="id" value="@c.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm"
+                                onclick="return confirm('Видалити контакт `@c.ContactName`?');">
+                            Видалити
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

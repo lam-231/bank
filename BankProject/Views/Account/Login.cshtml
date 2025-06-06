@@ -1,0 +1,41 @@
+﻿@model BankProject.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Вхід";
+}
+
+<h2>Вхід</h2>
+
+<form asp-action="Login" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="CardNumber"></label>
+        <input asp-for="CardNumber" class="form-control" />
+        <span asp-validation-for="CardNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CVV"></label>
+        <input asp-for="CVV" class="form-control" />
+        <span asp-validation-for="CVV" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Увійти</button>
+    <a asp-action="Register" class="btn btn-link">Зареєструватися</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

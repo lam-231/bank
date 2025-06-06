@@ -1,0 +1,64 @@
+﻿@model BankProject.ViewModels.TransferViewModel
+@{
+    ViewData["Title"] = "Переказ коштів";
+}
+
+<h2>Переказ коштів</h2>
+
+<form asp-action="Transfer" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="row mb-3">
+        <label asp-for="Amount" class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-6">
+            <input asp-for="Amount" class="form-control" />
+            <span asp-validation-for="Amount" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label asp-for="DestinationCardNumber" class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-6">
+            <input asp-for="DestinationCardNumber" id="destinationCard" class="form-control" placeholder="12-digit card number" />
+            <span asp-validation-for="DestinationCardNumber" class="text-danger"></span>
+            <small class="form-text text-muted">
+                Введіть номер картки отримувача вручну або оберіть контакт нижче.
+            </small>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Контакт (за бажанням)</label>
+        <div class="col-sm-6">
+            <select id="contactSelect" class="form-select">
+                <option value="">-- Оберіть контакт --</option>
+                @foreach (var item in Model.AvailableContacts)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+            <small class="form-text text-muted">При виборі контакту його номер картки підставиться автоматично.</small>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Перевести</button>
+    <a asp-action="Profile" class="btn btn-secondary ms-2">Назад</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var contactSelect = document.getElementById("contactSelect");
+            var destInput = document.getElementById("destinationCard");
+
+            if (contactSelect && destInput) {
+                contactSelect.addEventListener("change", function () {
+                    var selectedCard = contactSelect.value;
+                    destInput.value = selectedCard || "";
+                });
+            }
+        });
+    </script>
+}

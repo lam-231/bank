@@ -6,6 +6,10 @@ namespace BankProject.Repositories.Interfaces
     {
         Task<bool> CardNumberExistsAsync(string cardNumber);
         Task AddAsync(Card card);
+
+        Task<Card> GetByCardNumberAsync(string cardNumber);
+        Task<Card> GetByUserIdAsync(int userId);
+
         Task SaveChangesAsync();
     }
 }

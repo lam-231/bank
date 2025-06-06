@@ -1,6 +1,7 @@
 ﻿@model BankProject.Models.User
 @{
     ViewData["Title"] = "Профіль";
+    var contacts = ViewData["Contacts"] as List<BankProject.Models.Contact>;
 }
 
 <h2>Вітаємо, @Model.Name @Model.Surname!</h2>
@@ -16,4 +17,7 @@
     </div>
 </div>
 
-<a asp-controller="Account" asp-action="Logout" class="btn btn-warning mt-3">Вийти</a>
+<a asp-action="Transfer" class="btn btn-success mb-3">Переказ коштів</a>
+<a asp-controller="Account" asp-action="Logout" class="btn btn-warning mb-3">Вийти</a>
+
+

@@ -24,6 +24,20 @@ namespace BankProject.Repositories
             await _ctx.Cards.AddAsync(card);
         }
 
+        public async Task<Card> GetByCardNumberAsync(string cardNumber)
+        {
+            return await _ctx.Cards
+                .Include(c => c.User)
+                .FirstOrDefaultAsync(c => c.CardNumber == cardNumber);
+        }
+
+        public async Task<Card> GetByUserIdAsync(int userId)
+        {
+            return await _ctx.Cards
+                .Include(c => c.User)
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+        }
+
         public async Task SaveChangesAsync()
         {
             await _ctx.SaveChangesAsync();

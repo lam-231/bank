@@ -13,6 +13,12 @@ namespace BankProject.Repositories
         {
             _ctx = ctx;
         }
+        public async Task<List<User>> GetAllAsync()
+        {
+            return await _ctx.Users
+                .Include(u => u.Card)
+                .ToListAsync();
+        }
 
         public async Task<User> GetByEmailAsync(string email)
         {

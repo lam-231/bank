@@ -1,0 +1,22 @@
+﻿@model BankProject.Models.User
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<h2>Детальна інформація про користувача</h2>
+
+<div class="card mb-4" style="max-width: 400px;">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name @Model.Surname</h5>
+        <p><strong>Id:</strong> @Model.Id</p>
+        <p><strong>Телефон:</strong> @Model.Phone</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Адреса:</strong> @Model.Address</p>
+        <p><strong>Вік:</strong> @Model.Age</p>
+        <p><strong>Номер картки:</strong> @Model.Card?.CardNumber</p>
+        <p><strong>CVV:</strong> @Model.Card?.CVV</p>
+        <p><strong>Баланс:</strong> @Model.Card?.Balance.ToString("C")</p>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary">Назад до списку</a>

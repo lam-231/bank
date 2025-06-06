@@ -9,6 +9,7 @@ namespace BankProject.Repositories.Interfaces
 
         Task<Card> GetByCardNumberAsync(string cardNumber);
         Task<Card> GetByUserIdAsync(int userId);
+        Task UpdateAsync(Card card);
 
         Task SaveChangesAsync();
     }

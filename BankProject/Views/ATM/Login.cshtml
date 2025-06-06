@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "ATM Login";
+}
+
+<h2>Вхід у банкомат</h2>
+
+<form asp-action="Login" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="row mb-3">
+        <label for="cardNumber" class="col-sm-3 col-form-label">Номер картки</label>
+        <div class="col-sm-6">
+            <input type="text" name="cardNumber" id="cardNumber" class="form-control"
+                   placeholder="12-digit card number"
+                   pattern="\d{12}" maxlength="12" required />
+            <span class="form-text text-muted">Введіть 12-значний номер картки.</span>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Далі</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

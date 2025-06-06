@@ -1,0 +1,23 @@
+﻿@model BankProject.Models.Card
+@{
+    ViewData["Title"] = "ATM Home";
+    var atmCash = ViewData["ATMCash"] as decimal? ?? 0m;
+}
+
+<h2>Банкомат</h2>
+
+<div class="card mb-4" style="width: 22rem;">
+    <div class="card-body">
+        <h5 class="card-title">Вітаємо, @Model.User.Name @Model.User.Surname!</h5>
+        <p><strong>Ваш баланс:</strong> @Model.Balance.ToString("C")</p>
+        <p><strong>Номер картки:</strong> @Model.CardNumber</p>
+        <p><strong>Готівка в банкоматі:</strong> @atmCash.ToString("C")</p>
+    </div>
+</div>
+
+<div class="d-grid gap-2" style="max-width: 300px;">
+    <a asp-action="Deposit" class="btn btn-success">Покласти кошти</a>
+    <a asp-action="Withdraw" class="btn btn-warning">Зняти кошти</a>
+    <a asp-action="Logout" class="btn btn-danger">Вийти</a>
+    <a asp-controller="Mobile" asp-action="Profile" class="btn btn-primary">Перейти в мобільну версію</a>
+</div>

@@ -31,7 +31,6 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Головна</a>
                         </li>
-
                         @{
                             var userId = HttpContextAccessor.HttpContext.Session.GetInt32("_UserId");
                         }
@@ -44,6 +43,30 @@
                     </ul>
 
                     <ul class="navbar-nav ms-auto">
+                        @{
+                            var path = HttpContextAccessor.HttpContext.Request.Path.Value?.ToLower() ?? "";
+                            bool isAtm = path.StartsWith("/atm");
+                        }
+
+                        @if (isAtm)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-outline-primary me-2"
+                                   asp-controller="Mobile" asp-action="Profile">
+                                    Мобільна версія
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-outline-primary me-2"
+                                   asp-controller="ATM" asp-action="Login">
+                                    Банкомат
+                                </a>
+                            </li>
+                        }
+
                         @if (userId != null)
                         {
                             <li class="nav-item">

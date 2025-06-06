@@ -25,11 +25,13 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICardRepository, CardRepository>();
-builder.Services.AddScoped<IContactRepository, ContactRepository>(); 
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
+builder.Services.AddScoped<IATMRepository, ATMRepository>();         
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IContactService, ContactService>();
-builder.Services.AddScoped<ICardService, CardService>(); 
+builder.Services.AddScoped<ICardService, CardService>();
+builder.Services.AddScoped<IATMService, ATMService>();            
 
 builder.Services.AddScoped<IPasswordHasher<BankProject.Models.User>, PasswordHasher<BankProject.Models.User>>();
 

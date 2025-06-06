@@ -12,8 +12,8 @@ namespace BankProject.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Card> Cards { get; set; }
-
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<ATM> ATMs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -58,9 +58,9 @@ BankProject — це ASP.NET Core MVC-додаток для банківськи
 
 Кожен клас відповідає лише за одну відповідальність:
 
-- **UserRepository** — лише доступ до таблиці Users.
-- **CardService** — лише бізнес-логіка, пов’язана з картками (перекази).
-- **ATMController** — лише обробка HTTP-запитів для ATM.
+- **[UserRepository](./BankProject/Repositories/UserRepository.cs)** — лише доступ до таблиці Users.
+- **[CardService](./BankProject/Services/CardService.cs)** — лише бізнес-логіка, пов’язана з картками (перекази).
+- **[ATMController](./BankProject/Controllers/ATMController.cs)** — лише обробка HTTP-запитів для ATM.
 
 Завдяки цьому класи простіші, їх легше тестувати та підтримувати.
 
@@ -68,22 +68,22 @@ BankProject — це ASP.NET Core MVC-додаток для банківськи
 
 Класи відкриті для розширення, але закриті для модифікації.
 
-Наприклад, щоб додати нові правила валідації для переказу, можна створити новий сервіс, який реалізує той самий інтерфейс `ICardService`, без зміни існуючого коду.
+Наприклад, щоб додати нові правила валідації для переказу, можна створити новий сервіс, який реалізує той самий інтерфейс [ICardService](./BankProject/Services/Interfaces/ICardService.cs), без зміни існуючого коду.
 
 ## 3 Liskov Substitution Principle (LSP)
 
 Будь-яка реалізація інтерфейсу може замінити базову без порушення логіки.
 
-У тестах можна підставити mock-реалізацію `ICardRepository` у контролери, і логіка програми не постраждає.
+У тестах можна підставити mock-реалізацію [ICardRepository](./BankProject/Repositories/Interfaces/ICardRepository.cs) у контролери, і логіка програми не постраждає.
 
 ## 4 Interface Segregation Principle (ISP)
 
 Інтерфейси розбиті за зонами відповідальності:
 
-- **IUserRepository** — дефінії для роботи з User.
-- **ICardRepository** — дефінії для роботи з Card.
-- **IContactRepository** — дефінії для роботи з Contact.
-- **IATMRepository** — визначає тільки роботу з ATM (TotalCash).
+- **[IUserRepository](./BankProject/Repositories/Interfaces/IUserRepository.cs)** — дефінії для роботи з User.
+- **[ICardRepository](./BankProject/Repositories/Interfaces/ICardRepository.cs)** — дефінії для роботи з Card.
+- **[IContactRepository](./BankProject/Repositories/Interfaces/IContactRepository.cs)** — дефінії для роботи з Contact.
+- **[IATMRepository](./BankProject/Repositories/Interfaces/IATMRepository.cs)** — визначає тільки роботу з ATM (TotalCash).
 
 Кожен клієнт залежить лише від тих методів, які йому потрібні.
 
@@ -106,14 +106,14 @@ public class MobileController
     // ...
 }
 ```
-Інтерфейси реєструються в `Program.cs` → факти реалізацій підміняються DI-контейнером.
+Інтерфейси реєструються в [Program.cs](./BankProject/Program.cs) → факти реалізацій підміняються DI-контейнером.
 
 ## 6 DRY (Don't Repeat Yourself)
 
 Повторювану логіку винесено у загальні частини:
 
 - Блоки перевірки сесії користувача у контролерах (`if (userId == null) return RedirectToAction("Login")`).
-- Блоки відображення TempData-повідомлень у `_Layout.cshtml`.
+- Блоки відображення TempData-повідомлень у [_Layout.cshtml](./BankProject/Views/Shared/_Layout.cshtml).
 - Моделі ViewModel з атрибутами валідації замість дублювання перевірок у контролерах.
 
 ## 7 KISS (Keep It Simple, Stupid)
@@ -152,15 +152,15 @@ public class MobileController
 
 - **Опис**: Ізоляція доступу до джерела даних за допомогою інтерфейсів і класів-репозиторіїв.
 - **Файли**:
-  - `Repositories/UserRepository.cs`
-  - `Repositories/CardRepository.cs`
-  - `Repositories/ContactRepository.cs`
-  - `Repositories/ATMRepository.cs`
+  - [Repositories/UserRepository](./BankProject/Repositories/UserRepository.cs)
+  - [Repositories/CardRepository](./BankProject/Repositories/CardRepository.cs)
+  - [Repositories/ContactRepository](./BankProject/Repositories/ContactRepository.cs)
+  - [Repositories/ATMRepository](./BankProject/Repositories/ATMRepository.cs)
 - **Відповідні інтерфейси**:
-  - `IUserRepository`
-  - `ICardRepository`
-  - `IContactRepository`
-  - `IATMRepository`
+  - [IUserRepository](./BankProject/Repositories/Interfaces/IUserRepository.cs)
+  - [ICardRepository](./BankProject/Repositories/Interfaces/ICardRepository.cs)
+  - [IContactRepository](./BankProject/Repositories/Interfaces/IContactRepository.cs)
+  - [IATMRepository](./BankProject/Repositories/Interfaces/IATMRepository.cs)
 - **Навіщо**:
   - Забезпечує єдину точку доступу до моделі.
   - Полегшує тестування (можна замінити реальний репозиторій mock’ом).
@@ -169,15 +169,15 @@ public class MobileController
 
 - **Опис**: Групування бізнес-логіки в сервіси, що «маскують» складні операції за простими інтерфейсами.
 - **Файли**:
-  - `Services/UserService.cs`
-  - `Services/CardService.cs`
-  - `Services/ContactService.cs`
-  - `Services/ATMService.cs`
+  - [Services/UserService](./BankProject/Services/UserService.cs)
+  - [Services/CardService](./BankProject/Services/CardService.cs)
+  - [Services/ContactService](./BankProject/Services/ContactService.cs)
+  - [Services/ATMService](./BankProject/Services/ATMService.cs)
 - **Інтерфейси**:
-  - `IUserService`
-  - `ICardService`
-  - `IContactService`
-  - `IATMService`
+  - [IUserService](./BankProject/Services/Interfaces/IUserService.cs)
+  - [ICardService](./BankProject/Services/Interfaces/ICardService.cs)
+  - [IContactService](./BankProject/Services/Interfaces/IContactService.cs)
+  - [IATMService](./BankProject/Services/Interfaces/IATMService.cs)
 - **Навіщо**:
   - Забезпечує єдину точку для складної бізнес-логіки (реєстрація, переказ, депозит, зняття).
   - Робить контролери «тоншими», перекладаючи більшу частину логіки на сервіси.
@@ -186,7 +186,7 @@ public class MobileController
 
 - **Опис**: Ін’єкція залежностей через конструктор.
 - **Файл**:
-  - `Program.cs` (реєстрація інтерфейсів і реалізацій)
+  - [Program.cs](./BankProject/Program.cs) (реєстрація інтерфейсів і реалізацій)
 - **Навіщо**:
   - Забезпечує слабку зв’язність компонентів.
   - Спрощує заміну реалізацій у тестах (наприклад, мок-репозиторії).
@@ -196,20 +196,20 @@ public class MobileController
 - **Опис**: Поділ на три шари: Модель, Вид, Контролер.
 - **Файли**:
   - **Models**:
-    - `Models/User.cs`
-    - `Models/Card.cs`
-    - `Models/Contact.cs`
-    - `Models/ATM.cs`
+    - [Models/User.cs](./BankProject/Models/User.cs)
+    - [Models/Card.cs](./BankProject/Models/Card.cs)
+    - [Models/Contact.cs](./BankProject/Models/Contact.cs)
+    - [Models/ATM.cs](./BankProject/Models/ATM.cs)
   - **ViewModels**:
-    - `ViewModels/*.cs`
+    - [ViewModels/*.cs](./BankProject/ViewModels)
   - **Controllers**:
-    - `Controllers/AccountController.cs`
-    - `Controllers/MobileController.cs`
-    - `Controllers/ATMController.cs`
-    - `Controllers/AdminController.cs`
-    - `Controllers/ContactsController.cs`
+    - [Controllers/AccountController.cs](./BankProject/Controllers/AccountController.cs)
+    - [Controllers/MobileController.cs](./BankProject/Controllers/MobileController.cs)
+    - [Controllers/ATMController.cs](./BankProject/Controllers/ATMController.cs)
+    - [Controllers/AdminController.cs](./BankProject/Controllers/AdminController.cs)
+    - [Controllers/ContactsController.cs](./BankProject/Controllers/ContactsController.cs)
   - **Views**:
-    - `Views/*/*.cshtml`
+    - [Views](./BankProject/Views)
 - **Навіщо**:
   - Розділяє відповідальність між обробкою запитів, логікою та відображенням.
 
@@ -217,11 +217,11 @@ public class MobileController
 
 - **Опис**: Використання спеціалізованих моделей для Views.
 - **Файли**:
-  - `ViewModels/TransferViewModel.cs`
-  - `ViewModels/ATMDepositViewModel.cs`
-  - `ViewModels/ATMWithdrawViewModel.cs`
-  - `ViewModels/AdminIndexViewModel.cs`
-  - `ViewModels/AdminAddCashViewModel.cs`
+  - [ViewModels/TransferViewModel.cs](./BankProject/ViewModels/TransferViewModel.cs)
+  - [ViewModels/ATMDepositViewModel.cs](./BankProject/ViewModels/ATMDepositViewModel.cs)
+  - [ViewModels/ATMWithdrawViewModel.cs](./BankProject/ViewModels/ATMWithdrawViewModel.cs)
+  - [ViewModels/AdminIndexViewModel.cs](./BankProject/ViewModels/AdminIndexViewModel.cs)
+  - [ViewModels/AdminAddCashViewModel.cs](./BankProject/ViewModels/AdminAddCashViewModel.cs)
 - **Навіщо**:
   - Забезпечує лише необхідні поля для форми, разом із атрибутами валідації.
   - Уникнення передачі доменних моделей безпосередньо у Views.
@@ -234,8 +234,8 @@ public class MobileController
 
 ## 1 Extract Class / Extract Interface
 
-- Винесення логіки доступу до даних у окремі репозиторії (`UserRepository`, `CardRepository`, `ContactRepository`, `ATMRepository`) та відповідні інтерфейси (`IUserRepository`, `ICardRepository`, `IContactRepository`, `IATMRepository`).
-- Винесення бізнес-логіки у сервіси (`UserService`, `CardService`, `ContactService`, `ATMService`) із відповідними інтерфейсами.
+- Винесення логіки доступу до даних у окремі репозиторії (`UserRepository`, `CardRepository`, `ContactRepository`, `ATMRepository` [Репозиторії](./BankProject/Repositories)) та відповідні інтерфейси (`IUserRepository`, `ICardRepository`, `IContactRepository`, `IATMRepository` [Інтерфейси](./BankProject/Repositories/Interfaces)). 
+- Винесення бізнес-логіки у сервіси (`UserService`, `CardService`, `ContactService`, `ATMService`[Сервіси](./BankProject/Services)) із відповідними інтерфейсами.
 
 ## 2 Extract Method
 
